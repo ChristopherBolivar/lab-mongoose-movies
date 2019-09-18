@@ -12,7 +12,7 @@ const celebSchema = new Schema({
 
 
 
-const celeb = mongoose.model('celebirties', celebSchema);
+const celeb = mongoose.model('celebs', celebSchema);
 
 
 

@@ -10,4 +10,11 @@ nav ul li {
   display: inline;
   margin: 0 1rem; }
 
+.flex {
+  display: flex;
+  justify-content: space-around; }
+
+.flex div:first-child ul li {
+  list-style: none; }
+
 /*# sourceMappingURL=style.css.map */

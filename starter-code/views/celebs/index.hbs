@@ -1,12 +1,32 @@
-<h2>Celeberities:</h2>
-{{#each stars}}
+
+
+  <div class="flex">
+    <div>
+  <h2>Celeberities:</h2>
+ <ul class=".none">
+    {{#each stars}}
 <li>
-  <a href="/celebrities/details/{{this._id}}">{{this.name}}</a>
- <form action="/celebrities/delete/{{this._id}}" method="POST">
+  <a href="/celebs/details/{{this._id}}">{{this.name}}</a>
+ <form action="/celebs/delete/{{this._id}}" method="POST">
     <button>Delete</button>
 </form>
-<form action="/celebrities/edit/{{this._id}}" method="POST">
+<form action="/celebs/edit/{{this._id}}" method="GET">
     <button>edit</button>
 </form>
   </li>
 {{/each}}
+ </ul>
+</div>
+
+
+<div>
+  <h2>Movies:</h2>
+ <ul>
+    {{#each movies}}
+<li>
+  <a href="/celebs/movie/details/{{this._id}}">{{this.title}}</a>
+</li>
+{{/each}}
+ </ul>
+</div>
+  </div>

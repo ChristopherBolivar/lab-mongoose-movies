@@ -1,0 +1,33 @@
+<h2>Add a new book to the library</h2>
+
+
+<form action="/celebs/newmovie/" method="POST">
+
+
+<p>Movie Title</p>
+<input type="text" name="mTitle">
+
+
+<p>Director</p>
+<input type="text" name="mDirector">
+<p>Starring actor:</p>
+<select name="star">
+
+<option value="" selected disabled>Please Select One</option>
+
+{{#each allCelebs}}
+{{!-- the array of authors gets pulled from the Database  --}}
+<option value="{{this._id}}">{{this.name}}</option>
+
+{{/each}} 
+
+
+</select>
+
+
+
+
+
+<button>Save</button>
+
+</form>

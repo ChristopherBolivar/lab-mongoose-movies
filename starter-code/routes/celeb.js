@@ -1,24 +1,40 @@
 const express = require('express');
 const router  = express.Router();
 const celebs = require('../models/celebModel')
+const movie = require('../models/movieModel')
 
 /* GET home page */
-router.get('/celebrities', (req, res, next) => {
+router.get('/celebs', (req, res, next) => {
   celebs.find()
   .then((allCelebs)=>{
     console.log(allCelebs)
-      res.render('celebs/index', {stars: allCelebs})
+
+
+
+    movie.find()
+    .then((allMovies)=>{
+      console.log(allMovies)
+        res.render('celebs/index', {movies: allMovies, stars: allCelebs})
+  
+    })
+    .catch((err)=>{
+        next(err);
+    })
+
+
+
+
 
   })
   .catch((err)=>{
       next(err);
   })
 
+
 });
 
-router.get('/celebrities/details/:id', (req, res, next) => {
-  console.log("============>",req.params.id)
-  var id = req.params.id
+
+router.get('/celebs/details/:id', (req, res, next) => {
   celebs.findById(req.params.id)
   .then((thisCeleb)=>{
     console.log(thisCeleb)
@@ -31,11 +47,27 @@ router.get('/celebrities/details/:id', (req, res, next) => {
 
 });
 
-router.get('/celebrities/new', (req, res, next)=>{
+router.get('/celebs/movie/details/:id', (req, res, next) => {
+  movie.findById(req.params.id).populate('celebs')
+  .then((thisMovie)=>{
+    celebs.findById(thisMovie.actors).then((thisActor)=>{
+
+      console.log("=====>",thisMovie.actors)
+      res.render('celebs/details/movie', {movie: thisMovie, cName: thisActor})
+
+    })
+  })
+  .catch((err)=>{
+      next(err);
+  })
+
+});
+
+router.get('/celebs/new', (req, res, next)=>{
   res.render('celebs/new.hbs');
 })
 
-router.post('/celebrities/', (req, res, next)=>{
+router.post('/celebs/', (req, res, next)=>{
 
   let cName = req.body.celebName;
   let cOccupation = req.body.celebOccupation;
@@ -49,25 +81,25 @@ router.post('/celebrities/', (req, res, next)=>{
   })
   .then((result)=>{
 
-      res.redirect('/celebrities/')
+      res.redirect('/celebs/')
 
   })
   .catch((err)=>{
       next(err);
   })
 })
-router.post('/celebrities/delete/:id', (req, res, next)=>{
+router.post('/celebs/delete/:id', (req, res, next)=>{
   let id = req.params.id;
 
   celebs.findByIdAndRemove(id)
   .then((result)=>{
-      res.redirect('/celebrities/')
+      res.redirect('/celebs/')
   })
   .catch((err)=>{
       next(err)
   })
 })
-router.get('/celebrities/edit/:thisid', (req, res, next)=>{
+router.get('/celebs/edit/:thisid', (req, res, next)=>{
   let id=req.params.thisid;
   celebs.findById(id)
   .then((thisGuy)=>{
@@ -79,7 +111,7 @@ router.get('/celebrities/edit/:thisid', (req, res, next)=>{
 })
 
 
-router.post('/celebrities/update/:thisid', (req, res, next)=>{
+router.post('/celebs/update/:thisid', (req, res, next)=>{
 
   let id=req.params.thisid;
  console.log(id)
@@ -91,7 +123,7 @@ router.post('/celebrities/update/:thisid', (req, res, next)=>{
 
   })
   .then((result)=>{
-      res.redirect('/celebrities/details/'+id)
+      res.redirect('/celebs/details/'+id)
   })
   .catch((err)=>{
       next(err);
