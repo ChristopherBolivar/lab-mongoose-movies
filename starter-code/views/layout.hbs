@@ -21,10 +21,17 @@
           <a href="/secret">Secret Page</a>
         {{/if}}
       </li>
-      <li>
-      <a href="/logout">Logout</a> 
-      </li>
     </ul>
+    {{#if theUser}}
+          <a href="/secret">Secret Page</a>
+          <form action="/logout" method="POST">
+            <button>Logout</button>
+          </form>
+        {{/if}}
+         {{#unless theUser}}
+    <button><a href="/login">login</a></button>
+        {{/unless}}
+    
   </nav>
 
   {{{body}}}

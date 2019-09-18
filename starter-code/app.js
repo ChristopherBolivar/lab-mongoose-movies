@@ -10,6 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const session    = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const flash = require("connect-flash")
 
 
 mongoose
@@ -31,7 +32,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(flash())
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
@@ -59,6 +60,12 @@ app.use(session({
     ttl: 24 * 60 * 60 // 1 day
   })
 }));
+
+app.use((req,res,next)=>{
+  res.locals.theUser = req.session.currentuser;
+  res.locals.errorMessage = req.flash('error')
+  next()
+})
 
 const index = require('./routes/index');
 app.use('/', index);
