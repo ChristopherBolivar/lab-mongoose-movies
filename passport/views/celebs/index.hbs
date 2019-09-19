@@ -1,0 +1,35 @@
+
+
+  <div class="flex">
+    <div>
+  <h2>Celeberities:</h2>
+ <ul class=".none">
+    {{#each stars}}
+<li>
+  <a href="/celebs/details/{{this._id}}">{{this.name}}</a>
+
+  {{#if ../theUser.isAdmin}}
+ <form action="/celebs/delete/{{this._id}}" method="POST">
+    <button>Delete</button>
+</form>
+<form action="/celebs/edit/{{this._id}}" method="GET">
+    <button>edit</button>
+</form>
+{{/if}}
+  </li>
+{{/each}}
+ </ul>
+</div>
+
+
+<div>
+  <h2>Movies:</h2>
+ <ul>
+    {{#each movies}}
+<li>
+  <a href="/celebs/movie/details/{{this._id}}">{{this.title}}</a>
+</li>
+{{/each}}
+ </ul>
+</div>
+  </div>

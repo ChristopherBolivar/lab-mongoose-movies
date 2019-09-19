@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+      <a href="/celebs/">Home Page</a>
+      </li>
+      <li>
+      <a href="/celebs/new">Add new Celebirty</a> 
+      </li>
+      <li>
+        {{#if theUser}}
+          <a href="/secret">Secret Page</a>
+        {{/if}}
+      </li>
+        {{#if theUser.isAdmin}}
+      <li><a href="/create-new-account">Create New User</a></li>
+      <li><a href="/active-users">See All Users</a></li>
+      {{/if}}
+
+    </ul>
+    {{#if theUser}}
+          <a href="/secret">Secret Page</a>
+          <form action="/logout" method="POST">
+            <button>Logout</button>
+          </form>
+        {{/if}}
+         {{#unless theUser}}
+    <button><a href="/login">login</a></button>
+        {{/unless}}
+   
+    
+  </nav>
+  {{#if successMessage}}
+    <div>{{successMessage}}</div>
+  {{/if}}
+  {{{body}}}
+
+  <script src="/javascripts/script.js"></script>
+</body>
+</html>

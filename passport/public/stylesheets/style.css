@@ -1,0 +1,20 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00B7FF; }
+
+nav ul li {
+  list-style: none;
+  display: inline;
+  margin: 0 1rem; }
+
+.flex {
+  display: flex;
+  justify-content: space-around; }
+
+.flex div:first-child ul li {
+  list-style: none; }
+
+/*# sourceMappingURL=style.css.map */
